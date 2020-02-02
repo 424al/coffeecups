@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<section class="mw7 center avenir">
+  <h2 class="shopindextitle">Coffee shops</h2>
+  <article class="bt bb b--black-10">
+{% for shop in shops%}
+
+    <a class="db pv4 ph3 ph0-l no-underline black dim" href="/shops/{{shop.slug}}">
+      <div class="flex flex-column flex-row-ns">
+        <div class="pr3-ns mb4 mb0-ns w-100 w-40-ns">
+          <img src="{{shop.images}}" class="db" alt="Photo of a dimly lit room with a computer interface terminal.">
+        </div>
+        <div class="w-100 w-60-ns pl3-ns">
+          <h1 class="f3 fw1 baskerville mt0 lh-title">{{shop.shop_name}}</h1>
+          <p class="f6 f5-l lh-copy">
+            {{shop.about|truncatewords:20}}
+          </p>
+          <br>
+          <p class="f6 lh-copy mv0">{{shop.city}}, {{shop.state}}
+          {{shop.weekday}}</p>
+        </div>
+      </div>
+    </a>
+  </article>
+  <article class="bb b--black-10">
+
+
+</article>
+
+
+{% endfor%}
+ 
+ <div class="pagination">
+
+
+  {% if shops.has_previous %}
+   <a class="pagination-action" href="?page={{shops.previous_page_number}}">
+    <i class="fas fa-angle-left"></i>
+  </a>
+  {% endif %}
+  {% for num in shops.paginator.page_range %}
+
+  {% if shops.number == num %}
+  <span class="pagination-number paginator-current">{{num}}</span>
+  {% elif num > shops.number|add:'-3' and num < shops.number|add:'3'%}
+  <a class="pagination-number" href="?page={{num}}">{{num}}</a>
+  {% endif %}
+  {% endfor %}
+   {% if shops.has_next %}
+   <a class="pagination-action" href="?page={{shops.next_page_number}}">
+    <i class="fas fa-angle-right"></i>
+  </a>
+  {% endif %}
+
+
+
+{% endblock content %}

@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{%static 'css/base.ss'%}">
+
+<article class="pa3 pa5-ns">
+  <h1 class="f2"><center> {{shop.shop_name}}</center></h1>
+  <center> <img src="{{shop.images}}" class="w-100 f5 measure" alt="Photo of outer space"></center>
+  <center><p>Source: <p></center>
+  <center> <p class="measure lh-copy">
+    {{shop.about}}
+  </p></center>
+  <center>
+    <p class="measure lh-copy">
+    {{shop.about2}}
+  </p>
+</center>
+  <center>
+    <hr width="40%">
+  </center>
+  <center>
+    <h1 class="f2"> Store Information </h1>
+  </center>
+   <center>
+      <p class="measure lh-copy">
+    <b><ul>Address:</ul></b>
+  </p>
+</center>
+     <center>
+      <p class="measure lh-copy">
+    {{shop.address}}
+  </p>
+</center>
+   <center>
+    <p class="measure lh-copy">
+    {{shop.city}}, {{shop.state}} {{shop.zipcode}}
+  </p>
+</center>
+<br>
+   <center>
+      <p class="measure lh-copy">
+    <b><ul>Store Hours:</ul></b>
+  </p>
+</center>
+  <center>
+      <p class="measure lh-copy">
+    <ul>Monday: </ul> {{shop.monday}}
+  </p>
+</center>
+<center>
+      <p class="measure lh-copy">
+    <ul>Tuesday: </ul> {{shop.tuesday}}
+  </p>
+</center>
+<center>
+      <p class="measure lh-copy">
+    <ul>Wednesday: </ul> {{shop.wednesday}}
+  </p>
+</center>
+<center>
+      <p class="measure lh-copy">
+    <ul>Thursday: </ul> {{shop.thursday}}
+  </p>
+</center>
+<center>
+      <p class="measure lh-copy">
+    <ul>Friday: </ul> {{shop.friday}}
+  </p>
+</center>
+<center>
+      <p class="measure lh-copy">
+    <ul>Saturday: </ul> {{shop.saturday}}
+  </p>
+</center>
+<center>
+      <p class="measure lh-copy">
+    <ul>Sunday: </ul> {{shop.sunday}}
+  </p>
+</center>
+   <center>
+      <p class="measure lh-copy">
+    <b><ul>Connect with {{shop.shop_name}}:</ul></b>
+  </p>
+</center>
+<center>
+  <p>
+{% if shop %}
+
+<a href="{{shop.instagram}}">
+  <i class="fab fa-instagram fa-3x"></i>
+</a>
+
+{% else %}
+<p> </p>
+{% endif %}
+            
+{% if shop%}
+<a href="{{shop.facebook}}">
+  <i class="fab fa-facebook-f fa-3x"></i>
+</a>
+
+{% else %}
+<p> </p>
+{% endif %}
+
+</p>
+</center>
+
+</article>
+
+    <center><iframe
+
+  width="600"
+  height="450"fs 
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCrfQnXPfcfz58ZaYBjEye9eZj2O4ZEmbk&q={{shop.embed_id}}" allowfullscreen>
+</iframe></center>
+
+
+{% endblock content %}
+
+<script type="text/javascript"></script>
+

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<article class="pa3 pa5-ns">
+  <h1 class="f2"><center> {{blog.title}}</center></h1>
+  <center> <img src="{{blog.image}}" class="w-100 f5 measure" alt="Photo of outer space"></center>
+  <center><p>Image Source:{{blog.source}} <p></center>
+    <center><p>Written by: {{blog.author}}</p></center>
+  <center> <p class="measure lh-copy">
+    {{blog.content}}
+  </p></center>
+<!--   <center><p class="measure lh-copy">
+    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+    vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+    no sea takimata sanctus est Lorem ipsum dolor sit amet.
+  </p> -->
+  
+</article></center>
+{% endblock content %}

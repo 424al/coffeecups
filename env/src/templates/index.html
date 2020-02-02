@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+
+
+       
+
+  </body>
+    </script>
+    <!-- TEXT UNDERNEATH THE MAP -->
+   
+   
+
+   
+
+<!--     <br>
+    <br>
+    <br>
+    <br>
+    <br> -->
+    <br>
+<header class="tc ph4">
+  <h1 class="f3 f2-m f1-l fw2 black-90 mv3">
+    A guide to Southern California's best local coffee shops
+  </h1>
+  <header class="tc ph4">
+  <h2 class="f5 f4-m f3-l fw2 black-50 mt0 lh-copy">
+    This is the subtitle where additional information can go if you really need it.
+  </h2>
+</header>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  
+
+</header>
+  </head>
+  <body>
+    <!--The div element for the map -->
+    <div id="map">
+    <script type="text/javascript">
+      var openInfoWindow;
+      var locations = {{data|safe}};
+// This example displays a marker at the center of Australia.
+// When the user clicks the marker, an info window opens.
+
+function initMap() {
+  
+  var Augies = {lat: 33.986872, lng: -117.808030};
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 10,
+    center: Augies }
+  );
+  let marker;
+  for( let i = 0; i <= locations.length; i++) { 
+    marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i]['lat'], locations[i]['lon']),
+        map: map,
+        title: locations[i]['shop_name']
+    });
+    var name = locations[i]['shop_name']
+    var base = "http://127.0.0.1:8000/shops/"
+    var website = locations[i]['slug']
+    var bio = locations[i]['about']
+    var a = base + website
+    var b = "<a href="+a+"/><b>"+name+"</b></a>"
+    var c = "<p>"+bio+"</p>"
+    
+
+    var text = b + c
+      var infowindow = new google.maps.InfoWindow()
+
+      google.maps.event.addListener(marker,'click', (function(marker,text,infowindow){ 
+        return function() {
+        
+       if (openInfoWindow)
+         openInfoWindow.close();
+         
+          infowindow.setContent(text);
+          openInfoWindow = infowindow;
+          infowindow.open(map,marker);
+        
+        };
+    })(marker,text,infowindow));
+}
+}
+    </script>
+  </div>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrfQnXPfcfz58ZaYBjEye9eZj2O4ZEmbk&callback=initMap">
+    
+    </script>
+<section id="feat">
+<!-- featured -->
+<header class="tc ph4">
+  <h1 class="f3 f2-m f1-l fw2 black-90 mv3"><strong>
+    Featured Coffee Shops
+    </strong>
+  </h1>
+</header>
+<section class="mw7 center avenir">
+
+  <article class="bb bb b--black-10">
+{% for shop in shops%}
+
+    <a class="db pv4 ph3 ph0-l no-underline black dim" href="/shops/{{shop.slug}}">
+      <div class="flex flex-column flex-row-ns">
+        <div class="pr3-ns mb4 mb0-ns w-100 w-40-ns">
+          <img src="{{shop.images}}" class="db" alt="Photo of a dimly lit room with a computer interface terminal.">
+        </div>
+        <div class="w-100 w-60-ns pl3-ns">
+          <h1 class="f3 fw1 baskerville mt0 lh-title">{{shop.shop_name}}</h1>
+          <p class="f6 f5-l lh-copy">
+            {{shop.about|truncatewords:20}}
+          </p>
+          <br>
+          <p class="f6 lh-copy mv0">{{shop.city}}, {{shop.state}}
+          {{shop.weekday}}</p>
+        </div>
+      </div>
+    </a>
+  </article>
+  <article class="bb b--black-10">
+
+
+</article>
+
+
+{% endfor%}
+</section>
+</section>
+
+<section id="sad">
+<header class="tc ph4">
+  <h1 class="f3 f2-m f1-l fw2 black-90 mv3">
+    <strong>
+    Latest Blog Posts
+    </strong>
+  </h1>
+</header>
+<section class="mw7 center avenir">
+
+  <article class="bb bb b--black-10">
+{% for blogs in blog%}
+
+ <a class="db pv4 ph3 ph0-l no-underline black dim" href="/blog/{{blogs.slug}}">
+      <div class="flex flex-column flex-row-ns">
+        <div class="pr3-ns mb4 mb0-ns w-100 w-40-ns">
+          <img src="{{blogs.image}}" class="db" alt="Photo of a dimly lit room with a computer interface terminal.">
+        </div>
+        <div class="w-100 w-60-ns pl3-ns">
+          <h1 class="f3 fw1 baskerville mt0 lh-title">{{blogs.title}}</h1>
+          <p class="f6 f5-l lh-copy">
+            {{blogs.content|truncatewords:25}}
+          </p>
+          <p class="f6 lh-copy mv0">By {{ blogs.author }}</p>
+        </div>
+      </div>
+    </a>
+  </article>
+  <article class="bb b--black-10">
+
+
+</article>
+
+
+{% endfor%}
+</section>
+</section>
+
+</section>
+<br>
+
+
+              
+
+<div class="pa4-l" >
+  <form class="bg-light-red mw7 center pa4 br2-ns ba b--black-10" action="{% url 'email-list-signup' %}" method="POST">
+    <fieldset class="cf bn ma0 pa0">
+      {% csrf_token %}
+      <legend class="pa0 f5 f4-ns mb3 black-80">Sign up for our newsletter</legend>
+      <div class="cf">
+        {{ form }}
+        <button type="submit" class="f6 f5-l button-reset fl pv3 tc bn bg-animate bg-black-70 hover-bg-black white pointer w-100 w-25-m w-20-l br2-ns br--right-ns">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  Sign up</button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+
+{% endblock content %}
+
+
+
+
